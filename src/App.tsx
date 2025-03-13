@@ -15,16 +15,16 @@ function App() {
 
   const fetchData = async () => {
     try {
-      setLoading(prev => true);
+      setLoading(true);
       const req = await fetch("https://jsonplaceholder.typicode.com/posts/");
       const res = await req.json();
       console.log(res);
-      setData(prev => res);
+      setData(res);
       
     } catch (error) {
       setError(error as string );
     } finally {
-      setLoading(prev => false);
+      setLoading(false);
     }
   }
 
