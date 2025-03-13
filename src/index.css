@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  font-family: 'Helvetica', sans-serif;
+}
+
+@font-face {
+  font-family: "Vogue";
+  src: url('/fonts/Vogue.ttf');
+}
+
+@font-face {
+  font-family: "Durak";
+  src: url('/fonts/Durak.otf');
+}
+
+@font-face {
+  font-family: "CoporateA";
+  src: url('/fonts/CoporateA.otf');
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("fonts/Helvetica.ttf");
+}
+
+@layer base {
+  .font-vogue {
+    font-family: "Vogue", sans-serif !important;
+  }
+}
