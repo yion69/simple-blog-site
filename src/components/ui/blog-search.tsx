@@ -14,7 +14,7 @@ export default function BlogSearch({ listNumber, data }:{ listNumber: number, da
     }
     
     return (
-        <div className="flex flex-col justify-center p-6" onClick={handleBlogClick}>
+        <div className="flex flex-col justify-center p-6 cursor-pointer hover:scale-95 transition-transform" onClick={handleBlogClick}>
             <span className="text-lg">{listNumber + 1}. {data.title}</span>
             <p className="text-sm text-zinc-700">{data.body}</p>
         </div>
