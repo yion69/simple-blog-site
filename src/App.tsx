@@ -5,6 +5,7 @@ import Main from "./components/main"
 import Navbar from "./components/navbar"
 import Loading from "./components/loading"
 import Error from "./components/error"
+import { BlogProvider } from "./context/BlogContext"
 
 function App() {
 
@@ -18,7 +19,6 @@ function App() {
       setLoading(true);
       const req = await fetch("https://jsonplaceholder.typicode.com/posts/");
       const res = await req.json();
-      console.log(res);
       setData(res);
       
     } catch (error) {
@@ -28,22 +28,21 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    fetchData();
-    console.log(data);
-  },[])
+  useEffect(() => { fetchData() },[]); 
   
   return (
-    <div className="flex flex-col items-center h-auto w-full">
-      <div className="flex flex-col h-full min-h-screen w-full md:w-full lg:w-8/12 px-4 md:px-6 lg:px-10 py-4 gap-4">
-        <Navbar />
-        <Banner data={data} />
-        {
-          loading ? <Loading /> : error ? <Error /> : <Main data={data} />
-        }
-        <Footer currentYear={ currentYear } />
+    <BlogProvider>
+      <div className="flex flex-col items-center h-auto w-full">
+        <div className="flex flex-col h-full min-h-screen w-full md:w-full lg:w-8/12 px-4 md:px-6 lg:px-10 py-4 gap-4">
+          <Navbar />
+          <Banner data={data} />
+          {
+            loading ? <Loading /> : error ? <Error /> : <Main data={data} />
+          }
+          <Footer currentYear={ currentYear } />
+        </div>
       </div>
-    </div>
+    </BlogProvider>
   )
 }
 

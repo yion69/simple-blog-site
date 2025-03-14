@@ -1,5 +1,7 @@
 import React, { useState } from "react"
-import { BlogProps } from "./main";
+import { BlogProps } from "../interfaces/BlogInterface";
+import BlogSearch from "./ui/blog-search";
+import { useSelectedBlog } from "../context/BlogContext";
 
 export default function Banner({ data }:{ data: BlogProps[] }) {
 
@@ -14,19 +16,18 @@ export default function Banner({ data }:{ data: BlogProps[] }) {
         })
     }
     const filtered = filteredBlogs();
+    const { selectedBlog } = useSelectedBlog();
+
     return (
         <div className="relative flex w-full h-fit">
             <div className="flex items-center justify-end w-full h-fit">
-                <input type="text" title="search-bar" className="w-full h-12 px-6 py-2 rounded-md border-2 border-zinc-300 bg-zinc-50 outline-0" onChange={handleQueryChange} placeholder="Search..." />
+                <input type="text" title="search-bar" className="w-full h-12 px-4 lg:px-6 py-2 rounded-md border-2 border-zinc-300 bg-zinc-50 outline-0 focus:border-zinc-400" onChange={handleQueryChange} placeholder="Search..." />
             </div>
             {
-                query.length !== 0 &&
-                    <div className="absolute flex flex-col top-11 h-fit w-full gap-1 bg-zinc-100 border-2 border-zinc-300 rounded-b-md">
+                query.length !== 0 && selectedBlog === null &&
+                    <div className="absolute flex flex-col top-11 h-fit w-full gap-1 bg-zinc-100 border-2 border-zinc-400 rounded-b-md">
                         { filtered.slice(0,10).map((e,i) => (
-                            <div key={i} className="flex flex-col justify-center p-6">
-                                <span className="text-lg">{i+1}. {e.title}</span>
-                                <p className="text-sm text-zinc-700">{e.body}</p>
-                            </div>
+                            <BlogSearch key={i} listNumber={i} data={e} />
                         ))}
                     </div>
             }
